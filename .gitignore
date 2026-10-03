@@ -2,3 +2,6 @@
 /node_modules/
 /dist/
 .phpunit.result.cache
+/composer.lock
+/package-lock.json
+/.impeccable/
