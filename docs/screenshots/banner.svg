@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="AOCaptcha — self-hosted drag-and-drop CAPTCHA for PHP">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#15245c"/>
+      <stop offset="55%" stop-color="#1a3fa8"/>
+      <stop offset="100%" stop-color="#3a5fe0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="320" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="320" rx="24" fill="url(#glow)"/>
+
+  <!-- scattered background shape confetti -->
+  <g fill="#ffffff" opacity="0.08">
+    <polygon points="930,40 950,52 950,76 930,88 910,76 910,52"/>
+    <circle cx="1020" cy="150" r="26"/>
+    <polygon points="1100,60 1118,72 1111,93 1089,93 1082,72"/>
+    <polygon points="840,170 858,182 858,206 840,218 822,206 822,182"/>
+    <circle cx="1140" cy="220" r="18"/>
+    <polygon points="980,230 1000,242 1000,266 980,278 960,266 960,242"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="64" y="118" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#ffffff">AOCaptcha</text>
+  <text x="66" y="156" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#dbe3ff">Self-hosted, drag-and-drop CAPTCHA for PHP</text>
+  <text x="66" y="188" font-family="Segoe UI, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#aebdf2">No third-party API · behavior-scored drag verification · 421 shapes</text>
+
+  <!-- drag-to-target motif -->
+  <g transform="translate(90,262)">
+    <circle cx="0" cy="0" r="22" fill="#ffffff"/>
+    <polygon points="0,-11 9.5,-5.5 9.5,5.5 0,11 -9.5,5.5 -9.5,-5.5" fill="#1a3fa8"/>
+    <path d="M30 0 C 90 -36, 150 -36, 210 0" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 7" opacity="0.6"/>
+    <circle cx="230" cy="0" r="24" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="3 5" opacity="0.8"/>
+    <polygon points="230,-11 239.5,-5.5 239.5,5.5 230,11 220.5,5.5 220.5,-5.5" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="3 4" opacity="0.8"/>
+  </g>
+</svg>
