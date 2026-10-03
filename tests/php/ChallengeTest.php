@@ -15,11 +15,7 @@ final class ChallengeTest extends TestCase
             $data = $challenge->generate();
 
             $this->assertMatchesRegularExpression('/^[0-9a-f]{16}$/', $data['id']);
-            $this->assertContains($data['shape'], [
-                'rounded-square', 'circle', 'hexagon', 'diamond',
-                'triangle', 'pentagon', 'octagon', 'star', 'cross',
-                'heart', 'bolt', 'moon', 'arrow', 'shield', 'logo-triangle',
-            ]);
+            $this->assertContains($data['shape'], Challenge::defaultShapeNames());
             $this->assertGreaterThanOrEqual(58, $data['target']['x']);
             $this->assertLessThanOrEqual(78, $data['target']['x']);
             $this->assertGreaterThanOrEqual(30, $data['target']['y']);
@@ -48,5 +44,14 @@ final class ChallengeTest extends TestCase
         $this->assertSame('circle', $data['shape']);
         $this->assertSame('Only prompt', $data['prompt']);
         $this->assertSame(10, $data['tolerance']);
+    }
+
+    public function testDefaultShapesAreLoadedFromSharedConfigFile(): void
+    {
+        $configPath = dirname(__DIR__, 2) . '/aocaptcha.config.json';
+        $config = json_decode((string) file_get_contents($configPath), true);
+
+        $this->assertIsArray($config['shapes'] ?? null);
+        $this->assertSame(array_keys($config['shapes']), Challenge::defaultShapeNames());
     }
 }

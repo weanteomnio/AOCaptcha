@@ -4,11 +4,7 @@ namespace weanteomnio\AOCaptcha;
 
 class Challenge
 {
-    public const DEFAULT_SHAPES = [
-        'rounded-square', 'circle', 'hexagon', 'diamond',
-        'triangle', 'pentagon', 'octagon', 'star', 'cross',
-        'heart', 'bolt', 'moon', 'arrow', 'shield', 'logo-triangle',
-    ];
+    private const CONFIG_PATH = __DIR__ . '/../../aocaptcha.config.json';
 
     public const DEFAULT_PROMPTS = [
         'Align the shape to continue',
@@ -18,14 +14,28 @@ class Challenge
     ];
 
     /**
-     * @param string[] $shapes
+     * @param string[]|null $shapes Defaults to every shape name in shapes.json.
      * @param string[] $prompts
      */
     public function __construct(
-        private array $shapes = self::DEFAULT_SHAPES,
+        private ?array $shapes = null,
         private array $prompts = self::DEFAULT_PROMPTS,
         private int $tolerance = 22,
     ) {
+        $this->shapes = $shapes ?? self::defaultShapeNames();
+    }
+
+    /**
+     * Shape names available in the shared shapes.json registry — the same
+     * file the JS build reads to generate the widget's SVG shape map.
+     *
+     * @return string[]
+     */
+    public static function defaultShapeNames(): array
+    {
+        $config = json_decode((string) file_get_contents(self::CONFIG_PATH), true);
+
+        return array_keys(is_array($config['shapes'] ?? null) ? $config['shapes'] : []);
     }
 
     /**

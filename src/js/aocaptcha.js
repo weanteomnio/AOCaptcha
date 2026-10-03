@@ -13,7 +13,11 @@
   var CHECK = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var XMARK = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
-  var SHAPES = {
+  // Replaced at build time (build.js) with the contents of shapes.json via
+  // esbuild's `define`, so a shape added there ships without touching this
+  // file. This literal is the fallback used when the file is dropped in
+  // without running the build.
+  var SHAPES = globalThis.__AOCAPTCHA_SHAPES__ || {
     'rounded-square': '<rect x="4" y="4" width="44" height="44" rx="11"/>',
     'circle':         '<circle cx="26" cy="26" r="22"/>',
     'hexagon':        '<polygon points="26,3 48,15 48,37 26,49 4,37 4,15"/>',
@@ -46,17 +50,59 @@
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   }
 
-  function initCaptchas() {
+  var THEME_PROPS = {
+    accent:       '--color-accent',
+    accentMuted:  '--color-accent-muted',
+    bgMuted:      '--color-bg-muted',
+    bgSoft:       '--color-bg-soft',
+    border:       '--color-border',
+    borderSoft:   '--color-border-soft',
+    danger:       '--color-danger',
+    success:      '--color-success',
+    surface:      '--color-surface',
+    text2:        '--color-text-2',
+    text3:        '--color-text-3',
+    text4:        '--color-text-4',
+    fontFamily:   '--font-family',
+    radiusFull:   '--radius-full',
+    radiusLg:     '--radius-lg',
+    radiusMd:     '--radius-md',
+    radiusXl:     '--radius-xl',
+    arenaHeight:  '--arena-height',
+    pieceSize:    '--piece-size',
+    width:        '--width',
+    maxWidth:     '--max-width',
+    fontSize:     '--text-sm',
+    fontSizeSmall: '--text-xs'
+  };
+
+  // Replaced at build time (build.js) with the "theme" section of
+  // aocaptcha.config.json, so editing that file restyles the widget with
+  // no JS required. AOCaptcha.init({ theme: {...} }) layers runtime
+  // overrides on top of this.
+  var DEFAULT_THEME = globalThis.__AOCAPTCHA_THEME__ || {};
+
+  function applyTheme(container, theme) {
+    for (var key in theme) {
+      if (!Object.prototype.hasOwnProperty.call(theme, key)) continue;
+      var cssVar = THEME_PROPS[key];
+      if (cssVar) container.style.setProperty(cssVar, theme[key]);
+    }
+  }
+
+  function initCaptchas(options) {
     var containers = document.querySelectorAll('[data-ao-captcha]');
     for (var i = 0; i < containers.length; i++) {
       if (containers[i].dataset.aoCaptchaInit) continue;
       containers[i].dataset.aoCaptchaInit = '1';
-      new AoCaptcha(containers[i]);
+      new AoCaptcha(containers[i], options);
     }
   }
 
-  function AoCaptcha(container) {
+  function AoCaptcha(container, options) {
     this.container = container;
+    applyTheme(container, DEFAULT_THEME);
+    if (options && options.theme) applyTheme(container, options.theme);
     this.endpoint  = container.dataset.aoCaptchaEndpoint || 'aocaptcha-endpoint.php';
     this.form      = container.closest('form');
     this.verified  = false;

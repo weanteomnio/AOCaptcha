@@ -16,6 +16,7 @@
   --color-text-3: #595956;
   --color-text-4: #767672;
   --ease-fast: 150ms cubic-bezier(0.2, 0, 0, 1);
+  --font-family: inherit;
   --leading-snug: 1.35;
   --radius-full: 9999px;
   --radius-lg: 12px;
@@ -30,6 +31,10 @@
   --text-xs: 0.75rem;
   --weight-medium: 500;
   --weight-semi: 600;
+  --arena-height: 180px;
+  --piece-size: 52px;
+  --width: auto;
+  --max-width: none;
 }
 
 /* ── Anteomnio Intent CAPTCHA ────────────────────────────────────────────────── */
@@ -38,6 +43,9 @@
 /* ── Card ───────────────────────────────────────────────────────────────────── */
 .ao-captcha {
   position: relative;
+  width: var(--width);
+  max-width: var(--max-width);
+  font-family: var(--font-family);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   background: linear-gradient(145deg, var(--color-bg-soft) 0%, var(--color-surface) 100%);
@@ -111,7 +119,7 @@
 /* ── Arena (drag surface) ───────────────────────────────────────────────────── */
 .ao-captcha__arena {
   position: relative;
-  height: 180px;
+  height: var(--arena-height);
   border-radius: var(--radius-lg);
   background:
     radial-gradient(ellipse at 70% 50%, rgba(26, 63, 168, 0.025) 0%, transparent 65%),
@@ -138,8 +146,8 @@
 /* ── Target ghost ───────────────────────────────────────────────────────────── */
 .ao-captcha__target {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: var(--piece-size);
+  height: var(--piece-size);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1;
@@ -196,8 +204,8 @@
 /* ── Draggable piece ────────────────────────────────────────────────────────── */
 .ao-captcha__piece {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: var(--piece-size);
+  height: var(--piece-size);
   transform: translate(-50%, -50%);
   z-index: 3;
   cursor: grab;
@@ -239,8 +247,8 @@
 /* ── Snap ring effect ───────────────────────────────────────────────────────── */
 .ao-captcha__snap-ring {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: var(--piece-size);
+  height: var(--piece-size);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 2px solid var(--color-accent);
