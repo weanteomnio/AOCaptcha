@@ -1,0 +1,16 @@
+{
+    "name": "@weanteomnio/aocaptcha",
+    "version": "0.1.0",
+    "description": "Embeddable drag-and-drop CAPTCHA widget.",
+    "license": "MIT",
+    "main": "dist/aocaptcha.umd.js",
+    "module": "dist/aocaptcha.esm.js",
+    "style": "dist/aocaptcha.min.css",
+    "files": ["dist", "src/js", "src/css"],
+    "scripts": {
+        "build": "node build.js"
+    },
+    "devDependencies": {
+        "esbuild": "^0.21.0"
+    }
+}
