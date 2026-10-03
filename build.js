@@ -15,7 +15,6 @@ esbuild.buildSync({
   bundle: false,
   format: 'esm',
   outfile: 'dist/aocaptcha.esm.js',
-  footer: { js: 'export default AOCaptcha;' },
 });
 
 esbuild.buildSync({
